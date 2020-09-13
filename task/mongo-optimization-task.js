@@ -266,13 +266,13 @@ async function task_3_1(db) {
                 let: { "value": "$criteria_value" },
                 pipeline: [
                     {
-                        $match:
-                        {
-                            "versions.initiativeId": ObjectId("58af4da0b310d92314627290")
+                        "$match" : {
+                            "versions.initiativeId" : ObjectId("58af4da0b310d92314627290"),
+                            $expr: { $eq: [ "$value",  "$$value" ] }
                         }
                     },
                     {
-                        $match: { $expr: { $eq: ["$value", "$$value"] } }
+                        "$limit": 1
                     }
                 ],
                 "as": "criteria"
